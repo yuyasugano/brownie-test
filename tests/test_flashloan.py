@@ -12,7 +12,7 @@ def test_flashloan(accounts, interface, chain, Flashloan):
     wethAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     weth = interface.WETH(wethAddress)
 
-    # deposit&obtain WETH and transfer to the Flashloan contract address for repayment
+    # deposit & obtain WETH and transfer to the Flashloan contract address for repayment
     user.transfer(wethAddress, "1 ether")
     wethBalance = weth.balanceOf(user)
     weth.transfer(flashloan.address, wethBalance, {'from': user})
@@ -21,5 +21,5 @@ def test_flashloan(accounts, interface, chain, Flashloan):
     tx = flashloan.initiateFlashLoan('0x1E0447b19BB6EcFdAe1e4AE1694b0C3659614e4e', wethAddress, 100 * 10 ** weth.decimals())
     tx.info()
     contractBalance = weth.balanceOf(flashloan.address)
-    print(click.style(f'remained weth wei: {contractBalance} {weth.symbol()}', fg='green', bold=True))
+    print(click.style(f'remained weth in wei: {contractBalance} {weth.symbol()}', fg='green', bold=True))
     assert contractBalance == wethBalance - 2, 'something went wrong'
